@@ -94,13 +94,13 @@ function connectBitcoin()
 function connectDB()
 {
 
-$sql = new mysqli('localhost', 'root', '98rd2VMpHXT6Y0LGEtWH4MhNzFlQbwGBHLhAbooCeP8kUKSM6V', 'radiojack');
+$sql = new mysqli('localhost', 'root', 'yourpassword-here', 'radiojack');
  
 if($sql->connect_errno > 0){
     die('Unable to connect to database [' . $sql->connect_error . ']');
 }
  
-$con = mysqli_connect("localhost","root","98rd2VMpHXT6Y0LGEtWH4MhNzFlQbwGBHLhAbooCeP8kUKSM6V","radiojack") or die("Some error occurred during connection " . mysqli_error($con));
+$con = mysqli_connect("localhost","root","yourpassword-here","radiojack") or die("Some error occurred during connection " . mysqli_error($con));
 
 
   return $con;
