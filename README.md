@@ -3,7 +3,8 @@
  
 * changed chips from a floating decimal only to a round number as a balance or playable balance or withdraw-able balance
 * to do, change 1,5,10 chips to 10,50,100 via png edit
--> done * readd deposit by QR code 
+# -> done * readd deposit by QR code 
+![s1](https://raw.githubusercontent.com/c4pt000/bitjack21-radiojack.one-radiocoin-blackjack/master/qr-deposit.png)
 
 bitjack21.com
 ```
