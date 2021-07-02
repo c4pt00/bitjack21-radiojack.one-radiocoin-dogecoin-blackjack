@@ -33,7 +33,7 @@ validate_session();
 <div id="menubar"><?php drawmenu(); ?></div>
 <div id="singlecolumnleft">
 <h1>Crypto-Proof</h1><br>
-It only seems fitting that cryptography, which is the basis for our trust in the bitcoin system, will now be used as the basis for trust in my bitcoin blackjack game.  This system is a mathematical/verifiable PROOF that every hand you play on http://bitjack21.com is 100% completely honest.  It allows you to prove/verify that:<br>
+It only seems fitting that cryptography, which is the basis for our trust in the bitcoin system, will now be used as the basis for trust in my bitcoin blackjack game.  This system is a mathematical/verifiable PROOF that every hand you play on http://radiojack.one is 100% completely honest.  It allows you to prove/verify that:<br>
 1.)  The order of the cards was COMPLETELY 100% random.<br>
 2.)  The order of the cards was determined once before any cards were dealt, and did not change during the hand.<br>
 <br>

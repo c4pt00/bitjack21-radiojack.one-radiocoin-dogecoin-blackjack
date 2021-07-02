@@ -20,11 +20,11 @@ header("Cache-Control: no-cache");
     failboat('Temporary Error: Database is down (Error -901)');
   }
 
-  $result = mysql_query("SELECT username,pwsalt,pwhash FROM users WHERE username = '".$_POST['username']."'", $con);
+  $result = mysqli_query($con, "SELECT username,pwsalt,pwhash FROM users WHERE username = '".$_POST['username']."'");
 
-  if(mysql_num_rows($result) ==  1)
+  if(mysqli_num_rows($result) ==  1)
   {
-    $row = mysql_fetch_array($result);
+    $row = mysqli_fetch_array($result);
     if(hash_password($_POST['password'],$row['pwsalt'])  == $row['pwhash'])
     {
       $_SESSION['username'] = $row['username'];
@@ -43,7 +43,7 @@ header("Cache-Control: no-cache");
   $logintime = date("YmdHis");
   $loginip = $_SERVER['REMOTE_ADDR'];
   $user = $_POST['username'];
-  mysql_query("UPDATE users set lastlogin='$logintime',loginip='$loginip' where username='$user'", $con);
+  mysqli_query($con, "UPDATE users set lastlogin='$logintime',loginip='$loginip' where username='$user'");
 
   echo json_encode(array("error"=>0));
 //}

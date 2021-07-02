@@ -18,10 +18,11 @@ function failboat($ecode = -9999)
 
 header("Cache-Control: no-cache");
 
+
 $con = connectDB();
 if (!$con)
 {
-  failboat('Database connection error -325.');/* . mysql_error());*/
+  failboat('Database connection error -325.');/* . mysqli_error());*/
 }
 
 if(!isset($_SESSION['username']))
@@ -36,6 +37,7 @@ $password = $_POST['password'];
 $time = date("YmdHis");
 $ipaddr = $_SERVER['REMOTE_ADDR'];
 $ubalance = getBTCBalance();
+$ubalancem1 = (getBTCBalance() - 1.00);
 $sbalance = getBTCBalance('');
 if(is_null($ubalance) || is_null($sbalance))
 {
@@ -44,11 +46,11 @@ if(is_null($ubalance) || is_null($sbalance))
 
 $dosend = -1;
 
-$result = mysql_query("SELECT pwsalt,pwhash,email FROM users WHERE username = '$user'", $con);
+$result = mysqli_query($con, "SELECT pwsalt,pwhash,email FROM users WHERE username = '$user'");
 
-if(mysql_num_rows($result) ==  1)
+if(mysqli_num_rows($result) ==  1)
 {
-  $row = mysql_fetch_array($result);
+  $row = mysqli_fetch_array($result);
   if(hash_password($password,$row['pwsalt'])  != $row['pwhash'])
   {
     failboat(2);
@@ -76,9 +78,9 @@ if($duh['isvalid'] != true)
   failboat("Invalid bitcoin address: $wallet");
 }
 
-if(BTCRound($amount + 0.01) > $ubalance)
+if(BTCRound($amount + 1.00) > $ubalance)
 {
-  failboat("You do not have enough bitcoins to withdraw $amount BTC (plus 0.01 BTC fee).  You currently have $ubalance BTC.");
+  failboat("You do not have enough bitcoins to withdraw $amount RADC (with the 1.00 RADC fee).  You currently have $ubalance RADC. reduce your withdrawal amount to $ubalancem1 RADC");
 }
 else
 {
@@ -93,7 +95,7 @@ if($amount <= (0.85 * ($sbalance + $amount - 0.5)))
 if($dosend == 0 || $dosend == 1)
 {
   try {
-    $bitcoin->move($user, "", BTCRound($amount + 0.01));
+    $bitcoin->move($user, "", BTCRound($amount + 1.00));
   } catch (Exception $e) {
     failboat("Temporary error: bitcoind is down.");
   }
@@ -101,10 +103,10 @@ if($dosend == 0 || $dosend == 1)
 
 if($dosend == 0)
 {
-  $result = mysql_query("INSERT into withdrawals (username, reqdate, amount, destination, ipaddr) values ('$user','$time','$amount','$wallet','$ipaddr')", $con);
+  $result = mysqli_query($con, "INSERT into withdrawals (username, reqdate, amount, destination, ipaddr) values ('$user','$time','$amount','$wallet','$ipaddr')");
   if(!$result)
   {
-    error_log("ZOMFGFAIL ($user) Funds (BTC $amount plus fee) moved from user account but unable to log the withdraw to DB or send the BTC.");
+    error_log("ZOMFGFAIL ($user) Funds (RADC $amount plus fee) moved from user account but unable to log the withdraw to DB or send the RADC.");
     failboat("Database error -3547");
   }
   mail_manual_payout($row['email'], $user, $amount, $wallet);
@@ -119,7 +121,7 @@ catch (Exception $e)
 {
   error_log("ZOMFGFAIL ($user) (Destination: $wallet) ($amount) ($time) Unable to send funds (sendfrom).");
 
-  $result = mysql_query("INSERT into withdrawals (username, reqdate, amount, destination, ipaddr) values ('$user','$time','$amount','$wallet','$ipaddr')", $con);
+  $result = mysqli_query($con, "INSERT into withdrawals (username, reqdate, amount, destination, ipaddr) values ('$user','$time','$amount','$wallet','$ipaddr')");
   if(!$result)
   {
     error_log("ZOMFGFAIL: *ALSO* unable to log prev transaction to DB.");
@@ -130,7 +132,7 @@ catch (Exception $e)
 }
 $sendtime = date("YmdHis");
 
-$result = mysql_query("INSERT into withdrawals (username, reqdate, amount, senddate, txid, destination, ipaddr) values ('$user','$time','$amount','$sendtime','$txid','$wallet','$ipaddr')", $con);
+$result = mysqli_query($con, "INSERT into withdrawals (username, reqdate, amount, senddate, txid, destination, ipaddr) values ('$user','$time','$amount','$sendtime','$txid','$wallet','$ipaddr')");
 if(!$result)
 {
   error_log("ZOMFGFAIL: Unable to log completed withdraw to DB ($user) ($amount) ($wallet) ($time) ($sendtime) ($txid).");

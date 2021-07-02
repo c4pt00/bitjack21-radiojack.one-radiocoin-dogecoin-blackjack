@@ -10,7 +10,7 @@ if(!isset($_SESSION['username']))
 {
   echo <<<DONE
 <title>Logging Out</title>
-<meta http-equiv="REFRESH" content="0;url=index"></HEAD>
+<meta http-equiv="REFRESH" content="0;url=index.php"></HEAD>
 <BODY>
 Your session has ended, logging out...
 </BODY>
@@ -30,6 +30,7 @@ exit();
 	
 <!--Stylesheets--> 
 <link href="css/style.css" rel="stylesheet" type="text/css" media="screen" /> 
+<link href="css/layout.css" rel="stylesheet" type="text/css" media="screen" /> 
 
 <!--[if lte IE 7]>
   <link href="css/ie.css" rel="stylesheet" type="text/css" media="screen" />
@@ -52,7 +53,18 @@ exit();
 </head>
  
 <body> 
+
+
+
 	<div id="wrapper">
+
+
+<div id="menubar"><ul id="a">    <li class="mb1"><a href="index.php" style="background-position: 0px 0px;">Home</a></li>
+    <li class="mb1"><a href="play.php" style="background-position: 0px 0px;">Play</a></li>
+    <li class="mb1"><a href="withdraw.php" style="background-position: 0px 0px;">Deposit/Withdraw</a></li>
+    <li class="mb1"><a href="rules.php" style="background-position: 0px 0px;">Rules</a></li>
+    <li class="mb1"><a href="contact.php" style="background-position: 0px 0px;">Contact</a></li>
+    <li class="mb1"><a href="logout.php" style="background-position: 0px 0px;">Log Out</a></li></ul></div>
 		<div id="table">
 			<div id="gameid"></div>
 			<div id="cryptoproof">
@@ -94,9 +106,9 @@ exit();
 			<div id="players"></div>
 			<div id="chips">
 				<ul>
-					<li class="chip c1"><img src="images/chips/c1.png" alt="1chip"/></li>
-					<li class="chip c5"><img src="images/chips/c5.png" alt="5chip"/></li>
-					<li class="chip c10"><img src="images/chips/c10.png" alt="10chip"/></li>
+					<li class="chip c10"><img src="images/chips/c1.png" alt="1chip"/></li>
+					<li class="chip c50"><img src="images/chips/c5.png" alt="5chip"/></li>
+					<li class="chip c100"><img src="images/chips/c10.png" alt="10chip"/></li>
 					<li class="chip c0"><img src="images/chips/c0.png" alt="0chip"/></li>
 				</ul>
 			</div>
@@ -111,8 +123,12 @@ exit();
 		</div><!--end of table-->	
 
 	</div><!--end of wrapper-->
+
+
+
+
 		<footer>
-			<div id="copyright"><span>&copy; 2011 Mr. Sizlak</span></div>
+			<div id="copyright"><span>&copy; 2011 original code by Mr. Sizlak</span></div>
 		</footer>
 </body>
 

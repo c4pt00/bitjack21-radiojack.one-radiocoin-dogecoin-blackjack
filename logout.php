@@ -8,7 +8,7 @@ reset_session();
 <html>
 <head>
 <title>BitJack21 - Bitcoin Blackjack</title>
-<meta http-equiv="REFRESH" content="0;url=http://bitjack21.com"></HEAD>
+<meta http-equiv="REFRESH" content="0;url=http://radiojack.one"></HEAD>
 <BODY>
 Logging out...
 </BODY>

@@ -41,8 +41,8 @@ $max2 = 0;
 for($i = $starttime; $i <= $endtime; $i += $interval)
 {
   $now = TimeCallback($i);
-  $res = mysql_query("select sum(netGain)/-100 as profit, count(*) as gp from games where endTime < '$now' and player != 'moeSizlak'", $con);
-  $d = mysql_fetch_assoc($res);
+  $res = mysqli_query($con, "select sum(netGain)/-100 as profit, count(*) as gp from games where endTime < '$now' ");
+  $d = mysqli_fetch_assoc($res);
 
   if($d['profit'] < 0){ $d['profit']=0;}
 
@@ -85,7 +85,7 @@ $graph->y2axis->title->SetFont(FF_FONT2,FS_NORMAL,26);
 $graph->xaxis->SetLabelFormatCallback('TimeCallback2');
 $graph->xaxis->SetLabelAngle(45);
 $graph->xaxis->SetPos("min");
-$graph->yaxis->title->Set('Profit (BTC)');
+$graph->yaxis->title->Set('Profit (RADC)');
 
 
 $sp1->mark->SetWidth(0);

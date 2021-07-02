@@ -3,7 +3,7 @@ require_once 'common.php';
 validate_session();
 
 define('NUMDECKS', 8);
-define('MAXSPLITS', 2);
+define('MAXSPLITS', 3);
 define('MAXACESPLITS',1);
 define('ALLOWTENSPLITS', 1);
 define('ALLOWSPLITANYTENS', 1);
@@ -15,9 +15,9 @@ define('BJAFTERTENSPLIT', 0);
 define('NATURALAFTERACESPLIT', 0);
 define('NATURALAFTERTENSPLIT', 0);
 define('ALLOWDOUBLE', 1);
-define('ALLOWSURRENDER', 0);
+define('ALLOWSURRENDER', 1);
 define('H17', 0);
-define('DEBUG', 0);
+define('DEBUG', 1);
 
 define('STAND', 0);
 define('HIT', 1);
@@ -30,8 +30,8 @@ define('PERM_SPLIT', 2);
 define('PERM_DOUBLE', 4);
 define('PERM_SURRENDER', 8);
 
-define('MAX_BET', 10);
-define('MIN_BET', 1);
+define('MAX_BET', 1000);
+define('MIN_BET', 100);
 
 /*function shufflecards(&$cards, $n)
 {
@@ -281,21 +281,21 @@ function getCurrentGame()
 {
   global $con;
 
-  $result = mysql_query("SELECT * FROM games WHERE player = '".$_SESSION['username']."' AND endTime is null", $con);
+  $result = mysqli_query($con, "SELECT * FROM games WHERE player = '".$_SESSION['username']."' AND endTime is null");
   if(!$result) { return failboat(-101); }
 
-  if(mysql_num_rows($result) >  1)
+  if(mysqli_num_rows($result) >  1)
   {
     echo json_encode(array("errorCode"=>"-3"));
     exit(0);
   }
-  else if(mysql_num_rows($result) == 0)
+  else if(mysqli_num_rows($result) == 0)
   {
     $game = NULL;
   }
   else
   {
-    $game = mysql_fetch_array($result);
+    $game = mysqli_fetch_array($result);
   }
   
   return $game;
@@ -327,16 +327,16 @@ function getR1RX()
 {
     global $con;
 
-    $result = mysql_query("SELECT nextR1,nextRX FROM users WHERE username =  '".$_SESSION['username']."'", $con);
+    $result = mysqli_query($con, "SELECT nextR1,nextRX FROM users WHERE username =  '".$_SESSION['username']."'");
     if(!$result) { return failboat(-777); }
 
-    $u = mysql_fetch_array($result);
+    $u = mysqli_fetch_array($result);
     $o = array();
 
     if(is_null($u['nextR1']) || strlen($u['nextR1']) != 32)
     {
         $o['R1'] = getRandBytes();
-        $result = mysql_query("UPDATE users SET nextR1='".$o['R1']."' WHERE username = '".$_SESSION['username']."'", $con);
+        $result = mysqli_query($con, "UPDATE users SET nextR1='".$o['R1']."' WHERE username = '".$_SESSION['username']."'");
         if(!$result) { return failboat(-778); }
     }
     else
@@ -347,7 +347,7 @@ function getR1RX()
     if(is_null($u['nextRX']) || strlen($u['nextRX']) != 32)
     {
         $o['RX'] = getRandBytes();
-        $result = mysql_query("UPDATE users SET nextRX='".$o['RX']."' WHERE username = '".$_SESSION['username']."'", $con);
+        $result = mysqli_query($con, "UPDATE users SET nextRX='".$o['RX']."' WHERE username = '".$_SESSION['username']."'");
         if(!$result) { return failboat(-779); }
     }
     else
@@ -593,10 +593,16 @@ function deal($bet, $R2)
   
   $time = date("YmdHis");
   $netGain  = 0 - $bet;
-//  $con = mysql_connect("localhost","bj","12qwerty56qwaszx");if(!$result) { return failboat(-102); }
-//  mysql_select_db("bj", $con);
 
-  $result = mysql_query("INSERT INTO games(player,shoe,shoenext,dcards,dscore,dnext,p1cards,p2cards,p3cards,p1score,p2score,p3score,p1next,p2next,p3next,p1double,p2double,p3double,bet,priorBalance, startTime, showSplit, showDouble, showHit, showStay, currentHand, numSplits, netGain, R2, R1, RX) VALUES('$player','$_cards','4','$_dcards','$dscore','2','$_p1cards',null,null,'$p1score','0','0','2','0','0','0','0','0','$bet','$priorBalance','$time','$showSplit','$showDouble','$showHit','$showStay','0','0','$netGain','$R2','$r1','$rx')", $con);
+$con = connectDB();
+  if (!$con)
+  {
+    failboat('Temporary Error: Database is down (Error -901)');
+  }
+
+
+
+  $result = mysqli_query($con, "INSERT INTO games(player,shoe,shoenext,dcards,dscore,dnext,p1cards,p2cards,p3cards,p1score,p2score,p3score,p1next,p2next,p3next,p1double,p2double,p3double,bet,priorBalance, startTime, showSplit, showDouble, showHit, showStay, currentHand, numSplits, netGain, R2, R1, RX) VALUES('$player','$_cards','4','$_dcards','$dscore','2','$_p1cards',null,null,'$p1score','0','0','2','0','0','0','0','0','$bet','$priorBalance','$time','$showSplit','$showDouble','$showHit','$showStay','0','0','$netGain','$R2','$r1','$rx')");
   if(!$result) { return failboat(-103); }
   
   if($p1score == 21 || $dscore == 21)
@@ -618,9 +624,12 @@ function hit($doubled = 0, $split = 0)
   $balance = getFlooredBalance();
   if(is_null($balance)) { failboat(-6605); }
   $bet = $game['bet'];
-  
-//  $con = mysql_connect("localhost","bj","12qwerty56qwaszx") ;if(!$result) { return failboat(-104); }
-//  mysql_select_db("bj", $con);
+
+$con = connectDB();
+  if (!$con)
+  {
+    failboat('Temporary Error: Database is down (Error -901)');
+  }
   
   if($doubled == 1 || $split == 1)
   {
@@ -632,7 +641,7 @@ function hit($doubled = 0, $split = 0)
     $balance=getFlooredBalance();  
     if(is_null($balance)) { failboat(-6607); }
     
-    $result = mysql_query("UPDATE games SET netGain=netGain-$bet WHERE gameID = '$gameid'", $con);
+    $result = mysqli_query($con, "UPDATE games SET netGain=netGain-$bet WHERE gameID = '$gameid'");
     if(!$result) { return failboat(-105); }
   }
   
@@ -654,7 +663,7 @@ function hit($doubled = 0, $split = 0)
     $pscore = hardcount($pcards/*, $pnext*/);
     $npscore = hardcount($npcards/*, $pnext*/);
     
-    $result = mysql_query("UPDATE games SET " . $p . "cards='$_pcards', " . $p . "next='$pnext', " . $p . "score='$pscore', " . $np . "cards='$_npcards', " . $np . "next='$npnext', " . $np . "score='$npscore', numSplits='$numSplits' WHERE gameID='$gameid'", $con);
+    $result = mysqli_query($con, "UPDATE games SET " . $p . "cards='$_pcards', " . $p . "next='$pnext', " . $p . "score='$pscore', " . $np . "cards='$_npcards', " . $np . "next='$npnext', " . $np . "score='$npscore', numSplits='$numSplits' WHERE gameID='$gameid'");
     if(!$result) { return failboat(-106); }
     $game = getCurrentGame();
   }  
@@ -703,14 +712,14 @@ function hit($doubled = 0, $split = 0)
     $showDouble = 0;
   }
   
-  $result = mysql_query("UPDATE games SET $p"."cards='$_pcards', $p"."next='$pnext', shoenext='$shoenext', $p"."score='$pscore', showHit='1', showStay='1', showDouble='$showDouble',showSplit='$showSplit', $p"."double='$doubled' WHERE gameID='$gameid'", $con); 
+  $result = mysqli_query($con, "UPDATE games SET $p"."cards='$_pcards', $p"."next='$pnext', shoenext='$shoenext', $p"."score='$pscore', showHit='1', showStay='1', showDouble='$showDouble',showSplit='$showSplit', $p"."double='$doubled' WHERE gameID='$gameid'"); 
   if(!$result) { return failboat(-107); }
   
   if(ONECARDAFTERACESPLIT && $game['numSplits'] == 1 && $pcards[0]%13 == 12)
   {
     if($game['currentHand'] == 0)
     {
-      $result = mysql_query("UPDATE games SET currentHand='1' WHERE gameID='$gameid'", $con);
+      $result = mysqli_query($con, "UPDATE games SET currentHand='1' WHERE gameID='$gameid'");
       if(!$result) { return failboat(-108); }
       return hit();
     }
@@ -734,7 +743,7 @@ function hit($doubled = 0, $split = 0)
       }
       else// if($game['currentHand'] == 0)
       {
-	$result = mysql_query("UPDATE games SET currentHand='1' WHERE gameID='$gameid'", $con);
+	$result = mysqli_query($con, "UPDATE games SET currentHand='1' WHERE gameID='$gameid'");
 	if(!$result) { return failboat(-109); }
 	return hit();
       }
@@ -747,13 +756,13 @@ function hit($doubled = 0, $split = 0)
       }
       else if($game['currentHand'] == 1)
       {
-	$result = mysql_query("UPDATE games SET currentHand='2' WHERE gameID='$gameid'", $con);
+	$result = mysqli_query($con, "UPDATE games SET currentHand='2' WHERE gameID='$gameid'");
 	if(!$result) { return failboat(-110); }
 	return hit();      
       }
       else// if($game['currentHand'] == 0)
       {
-	$result = mysql_query("UPDATE games SET currentHand='1' WHERE gameID='$gameid'", $con);
+	$result = mysqli_query($con, "UPDATE games SET currentHand='1' WHERE gameID='$gameid'");
 	if(!$result) { return failboat(-111); }
 	return hit();
       }
@@ -784,8 +793,12 @@ function game_over()
   $shoenext = $game['shoenext'];
   $numsplits = $game['numSplits'];
   
-//  $con = mysql_connect("localhost","bj","12qwerty56qwaszx") ;if(!$result) { return failboat(-112); }
-//  mysql_select_db("bj", $con);
+
+$con = connectDB();
+  if (!$con)
+  {
+    failboat('Temporary Error: Database is down (Error -901)');
+  }
   
   $dcards = explode(',',$game['dcards']);
   $_dcards = implode(',',$dcards);
@@ -943,14 +956,14 @@ function game_over()
   
   $time = date("YmdHis");
   
-  $result = mysql_query("UPDATE games SET netGain=netGain+$won, endTime='$time' WHERE gameID = '$gameid'", $con);
+  $result = mysqli_query($con, "UPDATE games SET netGain=netGain+$won, endTime='$time' WHERE gameID = '$gameid'");
   if(!$result) { return failboat(-113); }
-  $result = mysql_query("UPDATE games SET dcards='$_dcards', shoenext='$shoenext', dscore='$dscore' WHERE gameID = '$gameid'", $con);
+  $result = mysqli_query($con, "UPDATE games SET dcards='$_dcards', shoenext='$shoenext', dscore='$dscore' WHERE gameID = '$gameid'");
   if(!$result) { return failboat(-114); }
 
   $nextr1 = getRandBytes();
   $nextrx = getRandBytes();
-  $result = mysql_query("UPDATE users SET nextR1='$nextr1',nextRX='$nextrx' WHERE username = '".$_SESSION['username']."'", $con);
+  $result = mysqli_query($con, "UPDATE users SET nextR1='$nextr1',nextRX='$nextrx' WHERE username = '".$_SESSION['username']."'");
   if(!$result) { return failboat(-1776);}
   
   if($won > 0)
@@ -998,7 +1011,7 @@ function stay()
     }
     else// if($game['currentHand'] == 0)
     {
-      $result = mysql_query("UPDATE games SET currentHand='1' WHERE gameID='$gameid'", $con);
+      $result = mysqli_query($con, "UPDATE games SET currentHand='1' WHERE gameID='$gameid'");
       if(!$result) { return failboat(-115); }
       return hit();
     }
@@ -1011,13 +1024,13 @@ function stay()
     }
     else if($game['currentHand'] == 1)
     {
-      $result = mysql_query("UPDATE games SET currentHand='2' WHERE gameID='$gameid'", $con);
+      $result = mysqli_query($con, "UPDATE games SET currentHand='2' WHERE gameID='$gameid'");
       if(!$result) { return failboat(-116); }
       return hit();      
     }
     else// if($game['currentHand'] == 0)
     {
-      $result = mysql_query("UPDATE games SET currentHand='1' WHERE gameID='$gameid'", $con);
+      $result = mysqli_query($con, "UPDATE games SET currentHand='1' WHERE gameID='$gameid'");
       if(!$result) { return failboat(-117); }
       return hit();
     }
@@ -1031,8 +1044,13 @@ function stay()
 /*******************************************************************************************/
 header("Cache-Control: no-cache"); 
 
+
 $con = connectDB();
-if(!$con) { return failboat(-100); }
+  if (!$con)
+  {
+    failboat('Temporary Error: Database is down (Error -901)');
+  }
+
 
 $bitcoin = connectBitcoin();
 

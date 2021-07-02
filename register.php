@@ -31,7 +31,7 @@ $(function() {
   $('#reg').click(function() {
     $('#reg').hide();
     $('#result').empty();
-    $.post("reg", { "username":$('#u').val(), "password":$('#p').val(), "password2":$('#p2').val(), "email":$('#e').val(), "wallet":$('#w').val()}, updateState,"json");
+    $.post("/reg.php", { "username":$('#u').val(), "password":$('#p').val(), "password2":$('#p2').val(), "email":$('#e').val(), "wallet":$('#w').val()}, updateState,"json");
   });
 });
 
@@ -41,7 +41,7 @@ function updateState(data)
   {
     $('#result').css('font-size','140%').css('color','rgb(255,0,0)').html("SUCCESS.  Returning to login page in 5 seconds...");
     setTimeout(function(){
-      window.location="https://bitjack21.com";
+      window.location="http://radiojack.one";
     }, 5000);
   }
   else
@@ -62,7 +62,7 @@ function updateState(data)
 
 
 
-<br><br><p style="text-align:center;font-size:150%">Welcome to bitjack21.com !</p><br><br><br>
+<br><br><p style="text-align:center;font-size:150%">Welcome to radiojack.one !</p><br><br><br>
 <table border="1" style="text-align:left;margin-left:auto;margin-right:auto;">
 <tr><td>Username:</td><td><input id="u" type="text" size="40" name="username"></td></tr>
 <tr><td>Password:</td><td><input id="p" type="password" size="40" name="password"></td></tr>

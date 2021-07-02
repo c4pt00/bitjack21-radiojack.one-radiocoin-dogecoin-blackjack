@@ -3,7 +3,10 @@
 
 /*____________Main Style and Containers______________*/
 
-body{background:#333f35; font:normal bold 15px "Trebuchet MS"; color:#bcc09a}
+body{background:#3d594e; font:normal bold 15px "Trebuchet MS"; color:#23e9e3}
+
+
+
 
 a{text-decoration:none; color:white}
 
@@ -148,7 +151,7 @@ ul{list-style:none}
 		#score li{
 			float:left;
 			margin:13px 15px;
-			padding:0px 0 0 40px;
+			padding:0px 0 0 0px;
 			background:url(../images/moneyIcon.png) no-repeat
 		}
 			
@@ -156,7 +159,7 @@ ul{list-style:none}
 			#score li#money{background-position:top left}
 			#score li#bet{background-position:bottom left}
 	
-	#table #chips{
+#table #chips{
 		position:absolute;
 		width:250px;
 		height:100px;
@@ -174,8 +177,8 @@ ul{list-style:none}
 			display:none
 		}
 			#chips .chip img{position:absolute; width:40px; height:40px}
-			#chips li.c5{margin-top:15px}
-			#chips li.c10{margin-top:30px}
+			#chips li.c50{margin-top:15px}
+			#chips li.c100{margin-top:30px}
 			#chips li.c0{margin-top:45px}
 
 /*____________Game Control______________*/			

@@ -15,7 +15,7 @@ header("Cache-Control: no-cache");
 $con = connectDB();
 if (!$con)
 {
-  failboat('Temporary error: Database connection error. (-352)');/* . mysql_error());*/
+  failboat('Temporary error: Database connection error. (-352)');/* . mysqli_error());*/
 }
 
 if(isset($_SESSION['username']))
@@ -70,16 +70,28 @@ reset_session();
    $salt = generateSalt();
    $hash = hash_password($pw,$salt); 
    
-   $result = mysql_query("SELECT * FROM users WHERE username = '$user'", $con);
-   if(!$result) { failboat("Temporary error: Database error -101 ". mysql_error()); }
+   $result = mysqli_query($con, "SELECT * FROM users WHERE username = '$user'") or die(mysqli_error($con));
 
-   if(mysql_num_rows($result) >=  1)
+
+//   if(!$result) { failboat("Temporary error: Database error -101 ". mysqli_error()); }
+
+   if(mysqli_num_rows($result) >=  1)
    {
       failboat("A user with username $user already exists, choose a different username."); 
    }
 
+
+
+ function get_new_address( $account='' ) {
+        return $this->client->getnewaddress( $account );
+    }
+
+
    try {
-      $deposit = $bitcoin->getnewaddress($user);
+        $deposit = $bitcoin->getnewaddress($user);
+
+//      $deposit = $bitcoin->getnewaddress($user);
+
    } catch(Exception $e) {
       failboat("Temporary error: bitcoin daemon is down (-363)");
    }
@@ -90,7 +102,7 @@ reset_session();
    
    $jointime = date("YmdHis");
    $joinip = $_SERVER['REMOTE_ADDR']; 
-   $result = mysql_query("INSERT into users (username, email, wallet, pwhash, pwsalt, deposit, joindate, lastactive, lastlogin, joinip, loginip) values ('$user','$email','$wallet','$hash','$salt','$deposit','$jointime','$jointime','$jointime','$joinip','$joinip')", $con);
+   $result = mysqli_query($con, "INSERT into users (username, email, wallet, pwhash, pwsalt, deposit, joindate, lastactive, lastlogin, joinip, loginip) values ('$user','$email','$wallet','$hash','$salt','$deposit','$jointime','$jointime','$jointime','$joinip','$joinip')");
    if(!$result)
    {
       failboat("Database error -102");

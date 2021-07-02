@@ -79,9 +79,11 @@ DROP TABLE IF EXISTS `users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `username` varchar(256) NOT NULL,
+  `password` varchar(256) DEFAULT NULL,
+  `email` varchar(256) DEFAULT NULL,
+  `json` varchar(256) DEFAULT NULL,
   `pwhash` varchar(256) DEFAULT NULL,
   `pwsalt` varchar(256) CHARACTER SET latin1 COLLATE latin1_bin DEFAULT NULL,
-  `email` varchar(256) DEFAULT NULL,
   `wallet` varchar(256) DEFAULT NULL,
   `deposit` varchar(256) DEFAULT NULL,
   `session` varchar(512) DEFAULT NULL,
