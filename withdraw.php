@@ -137,8 +137,13 @@ DONE2;
     echo '<br><br><p style="text-align:center">To deposit radiocoins, send them to your deposit address listed below.  One confirmation is required before the radiocoins will appear in your account.</p>';
     echo '<table border="1" style="text-align:left;margin-left:auto;margin-right:auto;">';
     echo '<tr><td>Username</td><td>'.$myuser['username'].'</td></tr>';
-    echo '<tr><td>Balance (BTC)</td><td id="bal">'.$mybal.'</td></tr>';
-    echo '<tr><td>Deposit Address</td><td>'.$myuser['deposit'].'</td></tr></table><br><br><br>';
+    echo '<tr><td>Balance (RADC)</td><td id="bal">'.$mybal.'</td></tr>';
+    echo '<tr><td>Deposit Address</td><td>'.$myuser['deposit'].'</td></tr></table>';
+      echo '<h4>QR code deposit address</h4>';
+      echo '<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl='.$myuser['deposit'].'" title="deposit" />';
+
+
+
   }
 ?>
 

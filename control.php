@@ -3,7 +3,7 @@ require_once 'common.php';
 validate_session();
 
 define('NUMDECKS', 8);
-define('MAXSPLITS', 3);
+define('MAXSPLITS', 2);
 define('MAXACESPLITS',1);
 define('ALLOWTENSPLITS', 1);
 define('ALLOWSPLITANYTENS', 1);

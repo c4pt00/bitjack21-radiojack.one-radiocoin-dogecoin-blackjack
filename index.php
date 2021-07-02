@@ -5,6 +5,9 @@ validate_session();
 <!DOCTYPE html> 
 <html xmlns="http://www.w3.org/1999/xhtml"> 
 <head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
 <!--<meta http-equiv="refresh" content="3" /> uncoment this for auto refresh-->
 <meta name="keywords" content="radiocoin blackjack, radiocoin, blackjack, radiocoin casino, radiocoin game, RADC blackjack, RADC, radiocoin game, radiocoin gambling" />
@@ -29,7 +32,6 @@ validate_session();
 $(function() {
   $('#loginform').submit(dologin);
 });
-
 function dologin()
 {
     $('#logmein').hide();
@@ -65,8 +67,10 @@ function updateState(data)
 <div id="columns">
 <div id="side1">
 
-
 <?php
+
+
+
 if(isset($_SESSION['username']))
 {
   $fail = 0;
@@ -108,6 +112,12 @@ if(isset($_SESSION['username']))
       echo '<tr><td>Balance (RADC)</td><td>'.getBTCBalance().' RADC</td></tr>';
       echo '<tr><td>Balance (chips)</td><td>'.getBalance().' chips</td></tr>';
       echo '<tr><td>Deposit Address</td><td>'.$myuser['deposit'].'</td></tr></table>';
+echo '<br>';
+      echo '<h1>QR code deposit address</h1>';
+      echo '<img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl='.$myuser['deposit'].'" title="deposit" />';
+
+
+
     }
   }
 }
@@ -126,8 +136,18 @@ TEST;
   echo $login_html;
 }
 
+
+
+
+
+
 ?>
+
+
 <div id="side2">
+<br>
+<br>
+<br>
 <h1>Welcome to RadioJack.one !</h1><br>
 
 The "house edge" with this ruleset is razor thin, less than 0.5%, enjoy :)
@@ -141,3 +161,4 @@ The "house edge" with this ruleset is razor thin, less than 0.5%, enjoy :)
 
 </body>
 </html>
+

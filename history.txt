@@ -1,0 +1,305 @@
+    1  yum install nano sudo wget git-core httpd
+    2  cd /opt/
+    3  git clone https://github.com/c4pt000/bitjack21
+    4  ls
+    5  cd bitjack21/
+    6  ls
+    7  systemctl enable httpd
+    8  systemctl start httpd
+    9  ls
+   10  ifconfig 
+   11  systemctl start httpd
+   12  rpm -e --nodeps firewalld firewalld-filesystem
+   13  yum install ufw -y
+   14  ufw enable
+   15  ufw allow out 53
+   16  ufw allow out 80
+   17  ufw allow out 443
+   18  nano /etc/ufw/ufw.conf 
+   19  ufw enable
+   20  ufw status verbose
+   21  ufw delete 21
+   22  ufw delete 2
+   23  ufw status verbose
+   24  ufw allow in 80
+   25  nano /etc/httpd/conf.d/welcome.conf 
+   26  systemctl restart httpd
+   27  yum install mariadb-server mariadb-client -y
+   28  yum install mysql-server mysql
+   29  yum search phpmy
+   30  yum install phpMyAdmin.noarch
+   31  cd /
+   32  wget https://github.com/c4pt000/radiocoin/releases/download/linux/radiocoin-6.0.1_radiocoin-2.x86_64.rpm
+   33  yum install radio*rpm -y
+   34  mkdir /root/.radiocoin
+   35  nano /root/.radiocoin/radiocoin.conf
+   36  radiocoind 
+   37  radiocoin-cli getinfo
+   38  cd /opt/bitjack21/
+   39  ls
+   40  cp -rf * /var/www/html/
+   41  ls -lh /var/www/html/
+   42  restorecon -Rv * /var/www/html/
+   43  chmod -R 755 /var/www/html/
+   44  systemctl restart httpd
+   45  cd /var/www/html/
+   46  ls
+   47  nano index.php 
+   48  grep -ri "https://"
+   49  find . -type f -print0 | xargs -0 sed -i -e 's/bitjack21.com/radiojack.one/g' 
+   50  systemctl restart httpd
+   51  grep -ri "https"
+   52  grep -ri "https:"
+   53  find . -type f -print0 | xargs -0 sed -i -e 's/https:/http:/g' 
+   54  systemctl restart httpd
+   55  cp -rf index.php index.php.orig
+   56  nano index.php
+   57  systemctl restart httpd
+   58  nano index.php
+   59  systemctl restart httpd
+   60  cd /var/www/html/
+   61  nano index.php
+   62  ls
+   63  nano register.php 
+   64  nano index.php
+   65  nano /etc/httpd/conf.d/phpMyAdmin.conf 
+   66  chmod -R 755 /usr/share/phpMyAdmin
+   67  restorecon -Rv /usr/share/phpMyAdmin
+   68  nano /etc/httpd/conf.d/phpMyAdmin.conf 
+   69  systemctl restart httpd
+   70  nano /etc/httpd/conf.d/phpMyAdmin.conf 
+   71  systemctl restart httpd
+   72  systemctl status httpd
+   73  nano /etc/httpd/conf.d/phpMyAdmin.conf 
+   74  systemctl restart httpd
+   75  nano /etc/httpd/conf.d/phpMyAdmin.conf 
+   76  systemctl restart httpd
+   77  mysql_secure_installation 
+   78  systemctl start mysqld
+   79  systemctl start mysql
+   80  systemctl start mariadb
+   81  systemctl enable mariadb
+   82  cd /var/www/html/
+   83  cat /var/log/php-fpm/www-error.log 
+   84  grep -ri getBTCBalance
+   85  grep -ri getRADCBalance
+   86  nano index.php
+   87  nano common.php 
+   88  nano withdraw.php 
+   89  grep -ri "0.01"
+   90  cat /var/log/php-fpm/www-error.log 
+   91  date
+   92  cat /var/log/php-fpm/www-error.log 
+   93  nano index.php
+   94  cat /var/log/php-fpm/www-error.log 
+   95  date
+   96  nano withdraw.php 
+   97  nano login.php 
+   98  nano index.php
+   99  nano withdraw.php 
+  100  cat /var/log/php-fpm/www-error.log 
+  101  nano wd.php 
+  102  cat /var/log/php-fpm/www-error.log 
+  103  nano wd.php 
+  104  nano /root/.radiocoin/radiocoin.conf 
+  105  radiocoin-cli stop
+  106  radiocoind
+  107  radiocoin-cli getinfo
+  108  radiocoin-cli getbalance
+  109  cat /var/log/php-fpm/www-error.log 
+  110  nano wd.php 
+  111  cat /var/log/php-fpm/www-error.log 
+  112  nano wd.php 
+  113  cat /var/log/php-fpm/www-error.log 
+  114  nano play.php 
+  115  nano control.php 
+  116  nano play.php 
+  117  nano js/bitjack21.js 
+  118  ls
+  119  nano control.php 
+  120  nano play.php 
+  121  find . -name 'double.php'
+  122  nano play.php 
+  123  grep -ri "double.php"
+  124  find . -name "double.php"
+  125  nano play.php 
+  126  nano control.php 
+  127  cat /var/log/php-fpm/www-error.log 
+  128  nano control.php 
+  129  nano login.php 
+  130  nano common.php 
+  131  nano control.php 
+  132  nano play.php 
+  133  pwd
+  134  ifconfig 
+  135  nano js/bitjack21.js 
+  136  cp -rf /bitjack21.js js/
+  137  nano js/bitjack21.js 
+  138  cat /var/log/php-fpm/www-error.log 
+  139  date
+  140  nano js/bitjack21.js 
+  141  cp -rf control.php js/
+  142  nano js/jquery-1.6.2.min.js 
+  143  nano play.php 
+  144  cat /var/log/php-fpm/www-error.log 
+  145  nano control.php 
+  146  cat /var/log/php-fpm/www-error.log 
+  147  nano control.php 
+  148  cat /var/log/php-fpm/www-error.log 
+  149  nano control.php 
+  150  cat /var/log/php-fpm/www-error.log 
+  151  grep -ri "RADCRound()"
+  152  grep -ri "BTCRound()"
+  153  grep -ri "BTCRound"
+  154  grep -ri "RADCRound"
+  155  nano common.php 
+  156  cat /var/log/php-fpm/www-error.log 
+  157  nano common.php 
+  158  nano control.php 
+  159  grep -ri CHIPSPERBTC
+  160  grep -ri CHIPSPERRADC
+  161  nano common.php 
+  162  nano index.php
+  163  cat /var/log/php-fpm/www-error.log 
+  164  nano wd.php 
+  165  grep -ri "chips"
+  166  nano common.php 
+  167  radiocoin-cli getbalance
+  168  radiocoin-cli sendtoaddress RX9oPtdwdWsaXomiQJg2QeU7ZLXDiqd5w4 102
+  169  radiocoin-cli sendtoaddress RX9oPtdwdWsaXomiQJg2QeU7ZLXDiqd5w4 101
+  170  radiocoin-cli getbalance
+  171  nano play.php 
+  172  nano index.php
+  173  nano play.php 
+  174  nano index.php
+  175  nano play.php 
+  176  rm -rf play.php 
+  177  wget https://raw.githubusercontent.com/c4pt000/bitjack21/master/play.php
+  178  nano css/layout.css 
+  179  nano css/style.css 
+  180  nano play.php 
+  181  cp -rf play.php play.php.orig
+  182  nano play.php
+  183  nano css/layout.css 
+  184  nano css/style.css 
+  185  nano play.php
+  186  nano rules.php 
+  187  radiocoin-cli getinfo
+  188  radiocoin-cli getbalance
+  189  grep -ri "exceeds"
+  190  nano withdraw.php 
+  191  grep -ri "data.error"
+  192  nano js/bitjack21.MAX.js 
+  193  nano withdraw.php 
+  194  nano css/layout.css 
+  195  nano css/style.css 
+  196  nano css/layout.css 
+  197  nano css/style.css 
+  198  nano play.php
+  199  nano common.php 
+  200  nano play.php
+  201  nano common.php 
+  202  nano play.php
+  203  nano common.php 
+  204  nano play.php
+  205  nano js/bitjack21.js 
+  206  nano common.php 
+  207  nano js/bitjack21.js 
+  208  nano play.php
+  209  nano css/style.css 
+  210  nano common.php 
+  211  nano css/style.css 
+  212  nano common.php 
+  213  nano js/bitjack21.js 
+  214  nano common.php 
+  215  grep -ri "maxBet"
+  216  grep -ri "10"
+  217  grep -ri "bet"
+  218  grep -ri "maxbet"
+  219  nano control.php 
+  220  grep -ri "chip c5"
+  221  grep -ri "5chip"
+  222  nano play.php
+  223  grep -ri "5chip"
+  224  grep -ri "5"
+  225  nano control.php 
+  226  grep -ri 1chip
+  227  nano js/bitjack21.MAX.js 
+  228  nano js/bitjack21.js 
+  229  grep -ri "MAX.js"
+  230  nano js/bitjack21.MAX.js 
+  231  nano play.php
+  232  nano js/bitjack21.js 
+  233  ls
+  234  rm -rf makead.php 
+  235  rm -rf mysql.php 
+  236  rm -rf jsonRPCClient.php.null 
+  237  ls
+  238  rm -rf jpgraph.tar.gz 
+  239  nano common.php 
+  240  rm -rf Doge.php 
+  241  rm -rf easybitcoin.php 
+  242  ls
+  243  nano control.php 
+  244  ls js
+  245  rm -rf js/control.php 
+  246  nano js/menu.js 
+  247  nano js/bitjack21.js 
+  248  nano control.php 
+  249  ls
+  250  grep -ri "chip5"
+  251  grep -ri "chip"
+  252  nano common.php 
+  253  grep -ri "10"
+  254  grep -ri "10" | less
+  255  nano play.php
+  256  ls
+  257  rm -rf play.php.orig 
+  258  ls
+  259  nano play.php
+  260  nano common.php 
+  261  radiocoin-cli getinfo
+  262  grep -ri "You curr"
+  263  grep -ri "currently"
+  264  nano withdraw.php 
+  265  nano js/html5.js 
+  266  nano common.php 
+  267  grep -ri "Coins sent!"
+  268  nano withdraw.php 
+  269  nano control.php 
+  270  nano rules.php 
+  271  nano play.php 
+  272  grep -ri "You do not have enough bitcoins to withdraw "
+  273  nano wd.php 
+  274  nano play.php 
+  275  nano control.php 
+  276  nano rules.php 
+  277  nano index.php
+  278  nano play.php 
+  279  nano withdraw.php 
+  280  nano wd.php 
+  281  nano withdraw.php 
+  282  nano play.php 
+  283  nano css/style.css 
+  284  nano play.php 
+  285  grep -ri "c10"
+  286  grep -ri "c5"
+  287  grep -ri "c1"
+  288  grep -ri "c10"
+  289  nano css/style.css 
+  290  radiocoin-cli getinfo
+  291  radiocoin-cli sendtoaddress RFCH9RaZMtWw7LPDknV28PQZQta9wRAMAG 3375
+  292  radiocoin-cli sendtoaddress RFCH9RaZMtWw7LPDknV28PQZQta9wRAMAG 3374
+  293  radiocoin-cli getinfo
+  294  git add .
+  295  ls
+  296  git clone https://github.com/c4pt000/bitjack21
+  297  cp -rf bitjack21/.git .
+  298  rm -rf bitjack21
+  299  ls
+  300  nano fix-perm.sh 
+  301  git add .
+  302  git commit
+  303  git push -f
+  304  history 
+  305  history > history.txt
