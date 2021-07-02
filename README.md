@@ -108,6 +108,7 @@ function connectBitcoin()
 
 ![s1](https://raw.githubusercontent.com/c4pt000/bitjack21-radiojack.one-radiocoin-blackjack/master/radiojack-deposit.png)
 ![s1](https://raw.githubusercontent.com/c4pt000/bitjack21-radiojack.one-radiocoin-blackjack/master/radiojack-deposit-detect1.png)
+![s1](https://raw.githubusercontent.com/c4pt000/bitjack21-radiojack.one-radiocoin-blackjack/master/radiojack-regular-withdraw.png)
 ![s1](https://raw.githubusercontent.com/c4pt000/bitjack21-radiojack.one-radiocoin-blackjack/master/radiojack-sent-manual-withdrawl.png)
 ![s1](https://raw.githubusercontent.com/c4pt000/bitjack21-radiojack.one-radiocoin-blackjack/master/radiojack-in-game-1.png)
 ![s1](https://raw.githubusercontent.com/c4pt000/bitjack21-radiojack.one-radiocoin-blackjack/master/radiojack-in-game-2.png)
