@@ -1,7 +1,7 @@
 # bitjack21 - radiojack.one (radiocoin blackjack)
 
 
-#replace 22555 with port matchin dogecoin.conf
+#replace 22555 with port matching dogecoin.conf
 
 test getnewaddress (dogecoin-cli genewaddress           # for receiving)
 ```
