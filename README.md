@@ -1,4 +1,17 @@
 # bitjack21 - radiojack.one (radiocoin blackjack)
+
+
+#replace 22555 with port matchin dogecoin.conf
+
+test getnewaddress (dogecoin-cli genewaddress           # for receiving)
+```
+ curl -L --user root:root --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getnewaddress","params":[]}' -H 'content-type:text/plain;' http://127.0.0.1:22555
+ ```
+ # test getinfo
+ ```
+   curl -L --user root:root --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getinfo","params":[]}' -H 'content-type:text/plain;' http://127.0.0.1:22555
+```
+
 * could be a docker image but its not
  
 * changed chips from a floating decimal only to a round number as a balance or playable balance or withdraw-able balance
