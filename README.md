@@ -1,5 +1,5 @@
 # bitjack21 - radiojack.one (radiocoin blackjack)
-
+# requires selinux disabled or a policy has to be set with selinux to let the coin daemon connect with rpc or Bitcoin daemon -323 errors
 
 #replace 22555 with port matching dogecoin.conf
 
