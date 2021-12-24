@@ -1,4 +1,4 @@
-# bitjack21 - radiojack.one (radiocoin blackjack)
+# bitjack21 - radiojack.one (radiocoin blackjack) **** DEBIAN 10 suggested ONLY (different php versions)
 # requires selinux disabled or a policy has to be set with selinux if set to enforcing to let the coin daemon connect with rpc or Bitcoin daemon -323 errors
 
 #replace 22555 with port matching dogecoin.conf
